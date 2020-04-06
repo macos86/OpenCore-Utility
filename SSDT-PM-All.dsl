@@ -11,8 +11,6 @@
  * - Icelake
  */
 
-
-
 DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
 {
     External (_PR_.CPU0, DeviceObj)    // (from opcode)
@@ -22,141 +20,69 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
     External (_SB_.SCK0.CP00, DeviceObj)    // (from opcode)
     External (_SB_.SCK0.PR00, DeviceObj)    // (from opcode)
 
-    If (CondRefOf (\_SB.CPU0))
-    {
-        Scope (\_SB.CPU0)
-        {
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
-            {
-                If (LEqual (Arg2, Zero))
-                {
-                    Return (Buffer (One)
-                    {
-                         0x03                                           
-                    })
-                }
+    Method (PMPM, 4, NotSerialized) {
+       If (LEqual (Arg2, Zero)) {
+           Return (Buffer (One) { 0x03 })
+       }
 
-                Return (Package (0x02)
-                {
-                    "plugin-type", 
-                    One
-                })
+       Return (Package (0x02)
+       {
+           "plugin-type", 
+           One
+       })
+   }
+    
+    If (CondRefOf (\_SB.CPU0)) {
+        Scope (\_SB.CPU0) {
+            Method (_DSM, 4, NotSerialized)  
+            {
+                Return (PMPM (Arg0, Arg1, Arg2, Arg3))
             }
         }
     }
 
-    If (CondRefOf (\_PR.CPU0))
-    {
-        Scope (\_PR.CPU0)
-        {
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+    If (CondRefOf (\_PR.CPU0)) {
+        Scope (\_PR.CPU0) {
+            Method (_DSM, 4, NotSerialized)  
             {
-                If (LEqual (Arg2, Zero))
-                {
-                    Return (Buffer (One)
-                    {
-                         0x03                                           
-                    })
-                }
-
-                Return (Package (0x02)
-                {
-                    "plugin-type", 
-                    One
-                })
+                Return (PMPM (Arg0, Arg1, Arg2, Arg3))
             }
         }
     }
 
-    If (CondRefOf (\_SB.PR00))
-    {
-        Scope (\_SB.PR00)
-        {
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+    If (CondRefOf (\_SB.PR00)) {
+        Scope (\_SB.PR00) {
+            Method (_DSM, 4, NotSerialized)  
             {
-                If (LEqual (Arg2, Zero))
-                {
-                    Return (Buffer (One)
-                    {
-                         0x03                                           
-                    })
-                }
-
-                Return (Package (0x02)
-                {
-                    "plugin-type", 
-                    One
-                })
+                Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+            }
+        }
+    }
+        
+    If (CondRefOf (\_PR.PR00)) {
+        Scope (\_PR.PR00) {
+            Method (_DSM, 4, NotSerialized)  
+            {
+                Return (PMPM (Arg0, Arg1, Arg2, Arg3))
             }
         }
     }
 
-    If (CondRefOf (\_PR.PR00))
-    {
-        Scope (\_PR.PR00)
-        {
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+    If (CondRefOf (\_SB.SCK0.CP00)) {
+        Scope (\_SB.SCK0.CP00) {
+            Method (_DSM, 4, NotSerialized)  
             {
-                If (LEqual (Arg2, Zero))
-                {
-                    Return (Buffer (One)
-                    {
-                         0x03                                           
-                    })
-                }
-
-                Return (Package (0x02)
-                {
-                    "plugin-type", 
-                    One
-                })
+                Return (PMPM (Arg0, Arg1, Arg2, Arg3))
             }
         }
     }
 
-    If (CondRefOf (\_SB.SCK0.CP00))
-    {
-        Scope (\_SB.SCK0.CP00)
-        {
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
+    If (CondRefOf (\_SB.SCK0.PR00)) {
+        Scope (\_SB.SCK0.PR00) {
+            Method (_DSM, 4, NotSerialized)  
             {
-                If (LEqual (Arg2, Zero))
-                {
-                    Return (Buffer (One)
-                    {
-                         0x03                                           
-                    })
-                }
-
-                Return (Package (0x02)
-                {
-                    "plugin-type", 
-                    One
-                })
+                Return (PMPM (Arg0, Arg1, Arg2, Arg3))
             }
-        }
-    }
-
-    If (CondRefOf (\_SB.SCK0.PR00))
-    {
-        Scope (\_SB.SCK0.PR00)
-        {
-            Method (_DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
-            {
-                If (LEqual (Arg2, Zero))
-                {
-                    Return (Buffer (One)
-                    {
-                         0x03                                           
-                    })
-                }
-
-                Return (Package (0x02)
-                {
-                    "plugin-type", 
-                    One
-                })
-            }
-        }
+        } 
     }
 }
