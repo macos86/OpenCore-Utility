@@ -13,12 +13,12 @@
 
 DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
 {
-    External (_PR_.CPU0, DeviceObj)    // (from opcode)
-    External (_PR_.PR00, DeviceObj)    // (from opcode)
-    External (_SB_.CPU0, DeviceObj)    // (from opcode)
-    External (_SB_.PR00, DeviceObj)    // (from opcode)
-    External (_SB_.SCK0.CP00, DeviceObj)    // (from opcode)
-    External (_SB_.SCK0.PR00, DeviceObj)    // (from opcode)
+    External (_PR_.CPU0, Processorobj)    // (from opcode)
+    External (_PR_.PR00, Processorobj)    // (from opcode)
+    External (_SB_.CPU0, Processorobj)    // (from opcode)
+    External (_SB_.PR00, Processorobj)    // (from opcode)
+    External (_SB_.SCK0.CP00, Processorobj)    // (from opcode)
+    External (_SB_.SCK0.PR00, Processorobjj)    // (from opcode)
 
     Method (PMPM, 4, NotSerialized) {
        If (LEqual (Arg2, Zero)) {
