@@ -15,6 +15,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
 {
     External (_SB_.CPU0, ProcessorObj)
     External (_PR_.CPU0, ProcessorObj)
+    External (_PR_.CP00, ProcessorObj)
     External (_PR_.C000, ProcessorObj)
     External (_PR_.P000, ProcessorObj)
     External (_SB_.PR00, ProcessorObj)
@@ -66,7 +67,18 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             }
         }
     }
-    
+
+    If (CondRefOf (\_PR.CP00)) {
+        If ((ObjectType (\_PR.CP00) == 0x0C)) {
+            Scope (\_PR.CP00) {
+                Method (_DSM, 4, NotSerialized)  
+                {
+                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                }
+            }
+        }
+    }
+
     If (CondRefOf (\_PR.C000)) {
         If ((ObjectType (\_PR.C000) == 0x0C)) {
             Scope (\_PR.C000) {
