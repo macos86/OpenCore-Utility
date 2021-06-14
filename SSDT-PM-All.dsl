@@ -23,8 +23,8 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
     External (_SB_.SCK0.CP00, ProcessorObj)
     External (_SB_.SCK0.PR00, ProcessorObj)
 
-    Method (PMPM, 4, NotSerialized) {
-       If (LEqual (Arg2, Zero)) {
+    Method (PMPM, 1, NotSerialized) {
+       If ((Arg0 == Zero)) {
            Return (Buffer (One) { 0x03 })
        }
 
@@ -40,7 +40,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_SB.CPU0) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -51,7 +51,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_PR.CPU0) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -62,7 +62,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_SB.PR00) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -73,7 +73,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_PR.CP00) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -84,7 +84,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_PR.C000) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -95,7 +95,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_PR.P000) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -106,7 +106,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_PR.PR00) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -117,7 +117,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_SB.SCK0.CP00) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
@@ -128,7 +128,7 @@ DefinitionBlock ("", "SSDT", 2, "PM-all", "Mac86it", 0x00000000)
             Scope (\_SB.SCK0.PR00) {
                 Method (_DSM, 4, NotSerialized)  
                 {
-                    Return (PMPM (Arg0, Arg1, Arg2, Arg3))
+                    Return (PMPM (Arg2))
                 }
             }
         }
